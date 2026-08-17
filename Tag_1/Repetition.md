@@ -34,13 +34,9 @@ Ein Programmierparadigma definiert den grundlegenden Stil und die Herangehenswei
 | Merkmal	| Prozedurale Programmierung | Objektorientierte Programmierung (OOP) |
 | --- | --- | --- |
 | Fokus	| Zerlegung in Variablen, Datenstrukturen und Unterprogramme (Prozeduren) |	Zerlegung in Objekte, die Daten und Verhalten kapseln |
-| --- | --- | --- |
 | Struktur | Trennung von Daten und den darauf angewendeten Methoden | Bündelung von Daten und Methoden ("Object operates on its own data") |
-| --- | --- | --- |
 | Entwurf	| Top-Down Design: Systematische funktionale Dekomposition von Problemen in Teilprobleme | Abstraktion: Modellierung der realen Welt durch Klassen und Objekte |
-| --- | --- | --- |
 | Einheiten |	Module, Prozeduren, Funktionen, Subroutinen |	Klassen, Objekte, Schnittstellen (Interfaces) |
-| --- | --- | --- |
 | Zustand	| Global oder über Parameter an Prozeduren übergeben | In Datenfeldern (Attributen) innerhalb der Objekte gespeichert |
 
 ### Die Realität in der Java-Enterprise-Entwicklung
