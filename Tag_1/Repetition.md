@@ -4,7 +4,7 @@
 
 ### Prozedural
 > Problemlösung mit Prozeduren\
-> Prozedur = Reihenfolgebasierte Anweisungen\
+> Prozedur = Reihenfolgebasierte Anweisungen
 >> Verwenden Variablen, Entscheidungen und Schleifen\
 >> Sub-Routinen/Funktionen möglich bzw. Aufteilung in Module (vgl. Header-files in C)\
 >> Vorteil: Eine Funktion mehrere Mal abrufbar\
@@ -13,7 +13,7 @@
 
 ### OOP
 > Fokus Problemlösung auf Elemente in realer Welt beziehen und Verhalten darstellen\
-> Objekt = Datenstruktur, die realem Objekt ähnlich ist\
+> Objekt = Datenstruktur, die realem Objekt ähnlich ist
 >> Enthalten Datenfelder, Methoden, Attribute\
 >> Zustand und Verhalten\
 >> Komplexität variabel\
@@ -29,18 +29,18 @@
 >> Programmierstiel, bei dem Implementierungsdetails ausgeblendet sind\
 >> Reduktion Komplexität massiv\
 >> nur Methoden verfügbar\
->> Umgesetzt mit Erstellung privater Variablen, in denen versteckte Klassen definiert werden und dann in öffentliche Variablen zu Verwendung eingesetzt werden\
+>> Umgesetzt mit Erstellung privater Variablen, in denen versteckte Klassen definiert werden und dann in öffentliche Variablen zu Verwendung eingesetzt werden
 >>> Klassen so aktualisiert oder gepflegt ohne Methoden im blick behalten müssen\
->>> fast wie Bibliotheken importieren\
+>>> fast wie Bibliotheken importieren
 >> Zur Abschirmung Zugriff auf Daten durch externen Code, erzwingt Bindung Daten und Code als Einheit und erzwingt so Modularität
 
 > Polymorphie
->> Variablen, Funktionen und Objekte können in mehreren Formen vorhanden sein\
->>> Laufzeitpolymorphismus\
+>> Variablen, Funktionen und Objekte können in mehreren Formen vorhanden sein
+>>> Laufzeitpolymorphismus
 >>>> ändert Form während Ausführung der Anwendung\
->>> Kompilierzeitpolymorphismus\
+>>> Kompilierzeitpolymorphismus
 >>>> ändert Form während Kompilierung\
->> Bsp.: Cursorverhalten\
+>> Bsp.: Cursorverhalten
 >> Methode oder Unterklasse kann Verhalten und Attribute definieren, während Funktionalität übergeordnete Klasse beibehält
 
 > Messaging
@@ -53,7 +53,7 @@
 >> Kapselung ist eine Form der Modularität
 
 > Vererbung
->> Klassenhierarchie erstellbar\
+>> Klassenhierarchie erstellbar
 >> Eigenschaften einer Klasse können von anderen Klassen oder Funktionen vererbt und erweitert werden\
 >> Attribute einer höher gestellten Klasse kann an eine untergeordnete Klasse vererbt werden
 
