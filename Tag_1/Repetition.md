@@ -63,6 +63,43 @@
 > Schlussendlich 2 Programmierparadigmen
 >> Programmierparadigma = Grundlegender Stil der Programmierung
 
+### Klassen vs. Objekte
+
+### Objekte
+> Eigenschaften\
+> Fähigkeiten\
+> eigenes Verhalten\
+> Erstellung Objekt mit “new”-Operator
+>> MyClass myRef = new MyClass();
+
+### Klasse
+> Bauplan für Objekte\
+> enthält Attribute/Fields/Eigenschaften\
+> enthält Constructors, getters und setters\
+> setters = Änderung eines Wertes eines Attributs\
+> getters = Abruf eines Wertes eines Attributs
+>> Erstellen für Sichtbarkeit
+
+> Access modifiers: private oder public
+>> public für alle zugänglich, private nicht\
+>> Private nur innerhalb einer Klasse bearbeitbar\
+>> protected: nur innerhalb desselben Packages/Ordner zugreifbar, wenn Klasse davon vererbt wird\
+>> static-Modifikator: Kennzeichnet Felder und Methoden, die zur Klasse selbst und nicht zu einer spezifischen Instanz gehören. Statische Felder werden von allen Instanzen einer Klasse geteilt.\
+>> Modifier-Reihenfolge: Die empfohlene und etablierte Reihenfolge ist public static, wobei der Access-Modifier an erster Stelle steht.
+
+> Felder sind Datenspeicher einer Klasse grundsätzlich private deklariert (von Oracle so festgelegt)
+>> get<Feldname>(): Lesezugriff auf ein Feld.\
+>> set<Feldname>(...): Schreibzugriff auf ein Feld. Hier können Gültigkeitsprüfungen implementiert werden.\
+>> Für boolesche Felder werden oft is<Feldname>() oder has<Feldname>() als Getter verwendet, um die Lesbarkeit zu erhöhen.\
+>> Das Schlüsselwort .this: Verweist immer auf die aktuelle Instanz des Objekts und wird verwendet, um Namenskonflikte zwischen Feldern und Parametern aufzulösen.
+
+> Optimale Anordnung einer Klasse:
+>> class GuineaPig {
+>>> Fields\
+>>> Constructor\
+>>> Methoden\
+>>> getters und setters (sind auch Methoden, aber spezifisch)\
+>> }
 
 ### Zentrale Erkenntnisse:
 
