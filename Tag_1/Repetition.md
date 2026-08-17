@@ -3,55 +3,63 @@
 ### Unterschied OOP und Prozedural
 
 ### Prozedural
-> Problemlösung mit Prozeduren
-> Prozedur = Reihenfolgebasierte Anweisungen
->> Verwenden Variablen, Entscheidungen und Schleifen
->> Sub-Routinen/Funktionen möglich bzw. Aufteilung in Module (vgl. Header-files in C)
->> Vorteil: Eine Funktion mehrere Mal abrufbar
->> ZB Taschenrechner in M319
+> Problemlösung mit Prozeduren\
+> Prozedur = Reihenfolgebasierte Anweisungen\
+>> Verwenden Variablen, Entscheidungen und Schleifen\
+>> Sub-Routinen/Funktionen möglich bzw. Aufteilung in Module (vgl. Header-files in C)\
+>> Vorteil: Eine Funktion mehrere Mal abrufbar\
+>> ZB Taschenrechner in M319\
 >> Generell Top-Down
 
 ### OOP
-> Fokus Problemlösung auf Elemente in realer Welt beziehen und Verhalten darstellen
-> Objekt = Datenstruktur, die realem Objekt ähnlich ist
->> Enthalten Datenfelder, Methoden, Attribute
->> Zustand und Verhalten
->> Komplexität variabel
+> Fokus Problemlösung auf Elemente in realer Welt beziehen und Verhalten darstellen\
+> Objekt = Datenstruktur, die realem Objekt ähnlich ist\
+>> Enthalten Datenfelder, Methoden, Attribute\
+>> Zustand und Verhalten\
+>> Komplexität variabel\
 >> Objekt ist Instanz einer Klasse eines Datentyps
+
 > Datenabstraktion
->> Programmiermethode, bei der Details des Programmiercodes vor Benutzer verborgen wird und nur wesentliche Dinge dem Benutzer angezeigt werden
->> Eher Ideen als Ereignisse
->> Vgl Browser, Code im Hintergrund
+>> Programmiermethode, bei der Details des Programmiercodes vor Benutzer verborgen wird und nur wesentliche Dinge dem Benutzer angezeigt werden\
+>> Eher Ideen als Ereignisse\
+>> Vgl Browser, Code im Hintergrund\
 >> Abstrakte Klassen oder Schnittstellen in Java und Python
+
 > Kapselung
->> Programmierstiel, bei dem Implementierungsdetails ausgeblendet sind
->> Reduktion Komplexität massiv
->> nur Methoden verfügbar
->> Umgesetzt mit Erstellung privater Variablen, in denen versteckte Klassen definiert werden und dann in öffentliche Variablen zu Verwendung eingesetzt werden
->>> Klassen so aktualisiert oder gepflegt ohne Methoden im blick behalten müssen
->>> fast wie Bibliotheken importieren
+>> Programmierstiel, bei dem Implementierungsdetails ausgeblendet sind\
+>> Reduktion Komplexität massiv\
+>> nur Methoden verfügbar\
+>> Umgesetzt mit Erstellung privater Variablen, in denen versteckte Klassen definiert werden und dann in öffentliche Variablen zu Verwendung eingesetzt werden\
+>>> Klassen so aktualisiert oder gepflegt ohne Methoden im blick behalten müssen\
+>>> fast wie Bibliotheken importieren\
 >> Zur Abschirmung Zugriff auf Daten durch externen Code, erzwingt Bindung Daten und Code als Einheit und erzwingt so Modularität
+
 > Polymorphie
->> Variablen, Funktionen und Objekte können in mehreren Formen vorhanden sein
->>> Laufzeitpolymorphismus
->>>> ändert Form während Ausführung der Anwendung
->>> Kompilierzeitpolymorphismus
->>>> ändert Form während Kompilierung
->> Bsp.: Cursorverhalten
+>> Variablen, Funktionen und Objekte können in mehreren Formen vorhanden sein\
+>>> Laufzeitpolymorphismus\
+>>>> ändert Form während Ausführung der Anwendung\
+>>> Kompilierzeitpolymorphismus\
+>>>> ändert Form während Kompilierung\
+>> Bsp.: Cursorverhalten\
 >> Methode oder Unterklasse kann Verhalten und Attribute definieren, während Funktionalität übergeordnete Klasse beibehält
+
 > Messaging
->> Einem Objekt kommunizieren, etwas spezifisches zu tun
->> Kommunikation zwischen Objekten
+>> Einem Objekt kommunizieren, etwas spezifisches zu tun\
+>> Kommunikation zwischen Objekten\
 >> idR Methoden-Aufruf
+
 > Modularität
->> Baukastenprinzip, Programme aufgeteilt in Funktionalitäten, Schnittstellen, Typen, Variablen, Konstanten, Prozeduren, Funktionen
+>> Baukastenprinzip, Programme aufgeteilt in Funktionalitäten, Schnittstellen, Typen, Variablen, Konstanten, Prozeduren, Funktionen\
 >> Kapselung ist eine Form der Modularität
+
 > Vererbung
->> Klassenhierarchie erstellbar
->> Eigenschaften einer Klasse können von anderen Klassen oder Funktionen vererbt und erweitert werden
+>> Klassenhierarchie erstellbar\
+>> Eigenschaften einer Klasse können von anderen Klassen oder Funktionen vererbt und erweitert werden\
 >> Attribute einer höher gestellten Klasse kann an eine untergeordnete Klasse vererbt werden
+
 > Flexibel und sehr wartbar, Modularität
 >> Wiederverwendbarkeit von Klassen erlaubt Programmierung ohne Code-Recyclings
+
 > Schlussendlich 2 Programmierparadigmen
 >> Programmierparadigma = Grundlegender Stil der Programmierung
 
