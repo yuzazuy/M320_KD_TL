@@ -1,6 +1,8 @@
 package heizung;
 
 
+import java.util.Scanner;
+
 public class Heater {
     private int temperature;
     private int min;
@@ -15,11 +17,61 @@ public class Heater {
         this.increment = increment;
     }
 
-//            if (temperature > max) {
-//                System.out.println("The temperature is greater than the maximum temperature.");
-//            } else if (temperature < min) {
-//                System.out.println("The temperature is less than the minimum temperature.");
-//            }
+
+    public void userInput() {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+
+
+        boolean startCondition = true;
+
+        do {
+            System.out.println("Temperature: " + this.getTemperature());
+            System.out.println("Min: " + this.getMin());
+            System.out.println("Max: " + this.getMax());
+            System.out.println("Increment: " + this.getIncrement());
+            System.out.println(" ");
+            System.out.println("Would you like to change temperature?");
+            System.out.println("Press + to increase, - to decrease:");
+            System.out.println("Your answer here: ");
+
+            input = scanner.nextLine();
+
+            if (input.equals("+")) {
+                this.setTemperature(this.getTemperature() + this.getIncrement());
+                System.out.println("Your temperature is: " + this.getTemperature());
+            } else if (input.equals("-")) {
+                this.setTemperature(this.getTemperature() - this.getIncrement());
+                System.out.println("Your temperature is: " + this.getTemperature());
+            } else if (this.getTemperature() > this.getMax()) {
+                System.out.println("The temperature is greater than the maximum temperature.");
+            } else if (this.getTemperature() < this.getMin()) {
+                System.out.println("The temperature is less than the minimum temperature.");
+            } else {
+                System.out.println("Invalid input. Please try again.");
+            }
+
+            System.out.println("Would you like to continue?");
+            System.out.println("Type 0 for no, type 1 for yes");
+            input = scanner.nextLine();
+
+            if (input.equals("0")) {
+                startCondition = false;
+            } else if (input.equals("1")) {
+                continue;
+            } else {
+                System.out.println("Invalid input. Please try again.");
+            }
+            break;
+        } while(startCondition);
+        scanner.close();
+    }
+
+
+
+    
+
 
 
     public int getTemperature() {
