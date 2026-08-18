@@ -1,7 +1,4 @@
 package ch;
-
-
-
 import java.util.Scanner;
 
 public class Heater {
@@ -24,8 +21,8 @@ public class Heater {
         String input;
 
 
-
         boolean startCondition = true;
+
 
         do {
             System.out.println("Temperature: " + this.getTemperature());
@@ -39,16 +36,12 @@ public class Heater {
 
             input = scanner.nextLine();
 
-            if (input.equals("+")) {
+            if ((input.equals("+")) && (this.getTemperature() <= this.getMax())) {
                 this.setTemperature(this.getTemperature() + this.getIncrement());
                 System.out.println("Your temperature is: " + this.getTemperature());
-            } else if (input.equals("-")) {
+            } else if ((input.equals("-")) && (this.getTemperature() >= this.getMin())) {
                 this.setTemperature(this.getTemperature() - this.getIncrement());
                 System.out.println("Your temperature is: " + this.getTemperature());
-            } else if (this.getTemperature() > this.getMax()) {
-                System.out.println("The temperature is greater than the maximum temperature.");
-            } else if (this.getTemperature() < this.getMin()) {
-                System.out.println("The temperature is less than the minimum temperature.");
             } else {
                 System.out.println("Invalid input. Please try again.");
             }
@@ -64,11 +57,10 @@ public class Heater {
             } else {
                 System.out.println("Invalid input. Please try again.");
             }
-            break;
+            //break;
         } while(startCondition);
         scanner.close();
     }
-
 
 
 

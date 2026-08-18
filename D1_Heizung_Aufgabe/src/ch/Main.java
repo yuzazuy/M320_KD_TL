@@ -1,13 +1,7 @@
 package ch;
 
-
-
-
 public class Main {
     public static void main(String[] args) {
-
-
-
 
 //        Heater myObj = new Heater(19, 0, 35, 1);
 //        myObj.userInput();
