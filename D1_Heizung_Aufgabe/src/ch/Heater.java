@@ -83,7 +83,7 @@ public class Heater {
             } else {
                 System.out.println("Invalid input. Please try again.");
             }
-            //break;
+
         }
     }
 
