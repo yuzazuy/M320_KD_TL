@@ -21,7 +21,7 @@ public class Main {
             Heater selected = Heater.selectHeater(heaters, scanner);
             selected.userInput(scanner);
             System.out.println("Choose another heater (1) or quit program (0):");
-            String answer = scanner.next();
+            String answer = scanner.nextLine();
 
             if (answer.equals("1")) {
                 continue;
@@ -29,6 +29,9 @@ public class Main {
                 programRunning = false;
             } else {
                 System.out.println("Invalid choice");
+                System.out.println("Choose another heater (1) or quit program (0):");
+                answer = scanner.nextLine();
+
             }
 
 
