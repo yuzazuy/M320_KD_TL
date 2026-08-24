@@ -24,7 +24,7 @@ public class Heater {
         boolean startCondition = true;
 
 
-        do {
+        while (startCondition == true) {
             System.out.println("Temperature: " + this.getTemperature());
             System.out.println("Min: " + this.getMin());
             System.out.println("Max: " + this.getMax());
@@ -36,14 +36,14 @@ public class Heater {
 
             input = scanner.nextLine();
 
-            if ((input.equals("+")) && (this.getTemperature() < this.getMax())) {
+            if ((input.equals("+")) && (this.getTemperature() + this.getIncrement() <= this.getMax())) {
                 this.setTemperature(this.getTemperature() + this.getIncrement());
                 System.out.println("Your temperature is: " + this.getTemperature());
-            } else if ((input.equals("-")) && (this.getTemperature() >= this.getMin())) {
+            } else if ((input.equals("-")) && (this.getTemperature() - this.getIncrement() >= this.getMin())) {
                 this.setTemperature(this.getTemperature() - this.getIncrement());
                 System.out.println("Your temperature is: " + this.getTemperature());
             } else {
-                System.out.println("Invalid input. Please try again.");
+                System.out.println("Range limits crossed. Please try again.");
             }
 
             System.out.println("Would you like to continue?");
@@ -58,7 +58,7 @@ public class Heater {
                 System.out.println("Invalid input. Please try again.");
             }
             //break;
-        } while(startCondition);
+        }
         scanner.close();
     }
 
