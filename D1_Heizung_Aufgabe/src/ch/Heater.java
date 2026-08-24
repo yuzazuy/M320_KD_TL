@@ -16,8 +16,32 @@ public class Heater {
     }
 
 
-    public void userInput() {
-        Scanner scanner = new Scanner(System.in);
+    public static Heater selectHeater(Heater[] heaters, Scanner scanner) {
+        System.out.println("Choose a heater:");
+        for (int i = 0; i < heaters.length; i++) {
+            Heater h = heaters[i];
+            System.out.println((i + 1) + ": Temp=" + h.getTemperature()
+                    + " Min=" + h.getMin() + " Max=" + h.getMax());
+        }
+        System.out.println("Your answer here: ");
+
+        int choice = -1;
+        while (choice < 0 || choice >= heaters.length) {
+            String input = scanner.nextLine();
+            try {
+                choice = Integer.parseInt(input) - 1;
+            } catch (NumberFormatException e) {
+                choice = -1;
+            }
+            if (choice < 0 || choice >= heaters.length) {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        return heaters[choice];
+    }
+
+    public void userInput(Scanner scanner) {
         String input;
 
 
@@ -25,6 +49,8 @@ public class Heater {
 
 
         while (startCondition == true) {
+
+
             System.out.println("Temperature: " + this.getTemperature());
             System.out.println("Min: " + this.getMin());
             System.out.println("Max: " + this.getMax());
@@ -59,7 +85,6 @@ public class Heater {
             }
             //break;
         }
-        scanner.close();
     }
 
 
