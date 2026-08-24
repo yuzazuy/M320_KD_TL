@@ -36,7 +36,7 @@ public class Heater {
 
             input = scanner.nextLine();
 
-            if ((input.equals("+")) && (this.getTemperature() <= this.getMax())) {
+            if ((input.equals("+")) && (this.getTemperature() < this.getMax())) {
                 this.setTemperature(this.getTemperature() + this.getIncrement());
                 System.out.println("Your temperature is: " + this.getTemperature());
             } else if ((input.equals("-")) && (this.getTemperature() >= this.getMin())) {

@@ -7,7 +7,7 @@ public class Main {
 //        myObj.userInput();
 
 
-        Heater myObj2 = new Heater(20, 3, 40, 10);
+        Heater myObj2 = new Heater(20, 3, 40, 5);
         myObj2.userInput();
 
 
