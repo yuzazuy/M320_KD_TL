@@ -6,6 +6,8 @@ public class FullTimeEmployee  extends Employee {
     private boolean hasBonus;
     private double Bonus;
 
+
+
     public FullTimeEmployee(String name, Integer id, double salary, double hours, double hourly_rate, double hours_worked, boolean hasBonus, double bonus) {
         super(name, id, salary, hours);
         this.hourly_rate = hourly_rate;
@@ -16,7 +18,7 @@ public class FullTimeEmployee  extends Employee {
 
     public double calculate_pay() {
         double rate = hourly_rate * hours_worked;
-        System.out.println("Rate is: " + rate);
+        System.out.println("Rate is: " + super.getName() + " " + rate);
         return rate;
     };
 

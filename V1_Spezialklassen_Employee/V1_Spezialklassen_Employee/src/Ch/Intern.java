@@ -12,7 +12,7 @@ public class Intern extends Employee {
 
     public double internWageCalc() {
         double wage = getSalary() * maxHours;
-        System.out.println("Wage is: " + wage);
+        System.out.println("Wage is: " + super.getName() + " " + wage);
         return wage;
     }
 
