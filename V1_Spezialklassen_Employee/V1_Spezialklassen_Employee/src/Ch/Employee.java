@@ -6,14 +6,59 @@ public class Employee {
 
     private String name;
     private Integer id;
-    private BigDecimal salary;
+    private double salary;
+    private double hours;
 
-    public void calculatePay() {
+    public Employee(String name, Integer id, double salary, double hours) {
+        this.name = name;
+        this.id = id;
+        this.salary = salary;
+        this.hours = hours;
+    }
 
+    public double calculatePay() {
+        double pay = this.salary * this.hours;
+        System.out.println("Employyee pay is: " + pay);
+        return pay;
     };
 
+    public String getName() {
+        return name;
+    }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public double getSalary() {
+        return salary;
+    }
 
+    public double getHours() {
+        return hours;
+    }
 
+//    public double isPay() {
+//        return pay;
+//    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setHours(double hours) {
+        this.hours = hours;
+    }
+
+//    public void setPay(double pay) {
+//        this.pay = pay;
+//    }
 }

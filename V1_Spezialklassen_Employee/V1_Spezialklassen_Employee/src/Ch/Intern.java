@@ -1,14 +1,19 @@
 package Ch;
 
 public class Intern extends Employee {
-    public Intern(String name, String surname, int age, double salary) {
 
+
+    private double maxHours;
+
+    public Intern(String name, Integer id, double salary, double hours) {
+        super(name, id, salary, hours);
     }
 
-    private Integer maxHours;
 
-    public void internWageCalc() {
-
+    public double internWageCalc() {
+        double wage = getSalary() * maxHours;
+        System.out.println("Wage is: " + wage);
+        return wage;
     }
 
 
