@@ -11,15 +11,17 @@ public class Intern extends Employee {
 
 
     public double internWageCalc() {
+        System.out.println("========================");
         if (super.getHours() >= maxHours) {
             System.out.println("Hours is greater than max Hours");
 
-        } else {
-        double wage = getSalary() * maxHours;
-        System.out.println("Wage is: " + super.getName() + " " + wage);
-        return wage;
         }
-       return 0;
+        double wage = getSalary() * maxHours;
+        System.out.println("Employee name = " + this.getName());
+        System.out.println("Wage is: " + wage);
+        return wage;
+
+
     }
 
 

@@ -13,7 +13,9 @@ public class PartTimeEmployee extends Employee {
 
     public double calculate_rate() {
         double rate =  hourly_rate * hours_worked;
-        System.out.println("rate: " + super.getName() + " " + rate);
+        System.out.println("========================");
+        System.out.println("Employee name = " + this.getName());
+        System.out.println("Fulltime rate: " + rate);
         return rate;
     }
 

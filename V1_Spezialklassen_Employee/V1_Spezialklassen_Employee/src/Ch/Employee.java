@@ -18,7 +18,9 @@ public class Employee {
 
     public double calculatePay() {
         double pay = this.salary * this.hours;
-        System.out.println("Employyee pay is: " + name + " " + pay);
+        System.out.println("========================");
+        System.out.println("Employee name = " + this.getName());
+        System.out.println("Employyee pay is: " + pay);
         return pay;
     };
 
