@@ -16,7 +16,8 @@ public class Intern extends Employee {
             System.out.println("Hours is greater than max Hours");
 
         }
-        double wage = getSalary() * maxHours;
+        double wage = getSalary() * this.getHours();
+        System.out.println("Employee id = " + this.getId());
         System.out.println("Employee name = " + this.getName());
         System.out.println("Wage is: " + wage);
         return wage;
