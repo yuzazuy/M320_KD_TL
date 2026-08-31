@@ -8,7 +8,10 @@ public class Employee {
     private Integer id;
     private BigDecimal salary;
 
-    public void calculatePay() {};
+    public void calculatePay() {
+
+    };
+
 
 
 
