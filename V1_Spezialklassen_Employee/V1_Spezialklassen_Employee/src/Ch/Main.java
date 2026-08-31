@@ -9,7 +9,8 @@ public class Main {
     Paul.calculate_rate();
     FullTimeEmployee Mother = new FullTimeEmployee("Mother", 03,500000, 555,555,555,true, 5000);
     Mother.calculate_pay();
-
+    Intern Alina = new Intern("Alina", 04, 44444, 56);
+    Alina.internWageCalc();
 
 
 

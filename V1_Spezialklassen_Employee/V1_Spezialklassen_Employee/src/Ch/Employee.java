@@ -38,9 +38,7 @@ public class Employee {
         return hours;
     }
 
-//    public double isPay() {
-//        return pay;
-//    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -58,7 +56,5 @@ public class Employee {
         this.hours = hours;
     }
 
-//    public void setPay(double pay) {
-//        this.pay = pay;
-//    }
+
 }
