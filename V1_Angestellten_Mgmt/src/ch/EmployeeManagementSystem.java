@@ -1,6 +1,7 @@
 package ch;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -103,30 +104,36 @@ public class EmployeeManagementSystem {
             System.out.println("6. Zurück zum Hauptmenü");
             System.out.print("Ihre Wahl: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Buffer leeren
+            try {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    searchByName();
-                    break;
-                case 2:
-                    searchById();
-                    break;
-                case 3:
-                    displayAllEmployees();
-                    break;
-                case 4:
-                    filterByType();
-                    break;
-                case 5:
-                    displayStatistics();
-                    break;
-                case 6:
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Ungültige Eingabe!");
+                switch (choice) {
+                    case 1:
+                        searchByName();
+                        break;
+                    case 2:
+                        searchById();
+                        break;
+                    case 3:
+                        displayAllEmployees();
+                        break;
+                    case 4:
+                        filterByType();
+                        break;
+                    case 5:
+                        displayStatistics();
+                        break;
+                    case 6:
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Ungültige Eingabe!");;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Ungültige Eingabe!");
+                scanner.nextLine();
+
             }
         }
     }
