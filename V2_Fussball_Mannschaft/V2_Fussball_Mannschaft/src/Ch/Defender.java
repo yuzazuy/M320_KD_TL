@@ -1,4 +1,4 @@
 package Ch;
 
-public class Defender {
+public class Defender implements Team {
 }

@@ -1,6 +1,9 @@
 package Ch;
 
 public class Menu {
+    public Menu() {
+        this.userMenu();
+    }
 
     //user input scanner thing
     void userMenu() {
@@ -14,6 +17,7 @@ public class Menu {
             System.out.println("Press 2 to create new players and add them to teams");
             System.out.println("Press 3 to create a new team");
             System.out.println("Press 4 to exit");
+            System.out.println("============Menu Done==============");
 
             int userChoice = 0;
 

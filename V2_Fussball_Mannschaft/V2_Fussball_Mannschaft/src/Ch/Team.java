@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 public interface Team {
 
+
+
+
     String namePlayer = "";
     default String showName() {
         System.out.println(this);
@@ -63,20 +66,10 @@ public interface Team {
         return input;
     };
 
-    //????
-    default String createNewRole() {
-        ArrayList<String> newRoleList = new ArrayList<>();
-        String input;
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Enter role name:");
-            while (!(input = scanner.nextLine()).equals("end")) {
-                newRoleList.add(input);
-            }
-        }
-        return input;
-    }
+
     //how to add to arrayList?
     //as a for loop maybe, to fill it up according to index
+
 
 
 

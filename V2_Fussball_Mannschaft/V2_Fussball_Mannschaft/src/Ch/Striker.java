@@ -1,6 +1,6 @@
 package Ch;
 
-public class Striker {
+public class Striker implements Team {
     String jogTraining() {
         return null;
     }
