@@ -1,6 +1,6 @@
 package Ch;
 
-public class Angreifer {
+public class Striker {
     String jogTraining() {
         return null;
     }
