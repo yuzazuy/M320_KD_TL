@@ -1,16 +1,24 @@
 package Ch;
 
-public class Menu {
-    public Menu() {
-        this.userMenu();
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Menu extends Team {
+
+    public Menu(String namePlayer, String role, String team, ArrayList<String> listTeam) {
+        super(namePlayer, role, team, listTeam);
     }
 
-    //user input scanner thing
-    void userMenu() {
+
+    public static void userMenu() {
 
 
-        boolean startCondition = true;
-        while (startCondition) {
+        boolean flag = true;
+
+        while (flag) {
+
+
             System.out.println("==============Menu=================");
             System.out.println("Pick one of the following options: ");
             System.out.println("Press 1 to list available teams with player names");
@@ -19,31 +27,37 @@ public class Menu {
             System.out.println("Press 4 to exit");
             System.out.println("============Menu Done==============");
 
-            int userChoice = 0;
+            Scanner sc = null;
+            try {
+                sc = new Scanner(System.in);
+                int userChoice;
+                userChoice = sc.nextInt();
 
-            switch (userChoice) {
-                case 1:
-                    //team list teams and players, maybe enum necessary?
-                    break;
-                case 2:
-                    //team creat players
-                    break;
-                case 3:
-                    //still team, create new team
-                    break;
-                case 4:
-                    System.out.println("Thank you and have a nice day");
-                    startCondition = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice");
-                    break;
+                switch (userChoice) {
+                    case 1:
+                        listTeamName();
+                        break;
+                    case 2:
+                        createNewPlayer();
+                        break;
+                    case 3:
+                        createNewTeam();
+                        break;
+                    case 4:
+                        System.out.println("Thank you and have a nice day");
+                        flag = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice");
+
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Ungültige Eingabe!");
+                sc.nextLine();
+
             }
+
         }
 
-
     }
-
-
-
 }

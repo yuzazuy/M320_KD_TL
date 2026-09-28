@@ -1,17 +1,22 @@
 package Ch;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public interface Team {
+public class Team {
 
-
+    public Team(String namePlayer, String role, String team, ArrayList<String> listTeam) {
+        this.namePlayer = namePlayer;
+        this.role = role;
+        this.team = team;
+        this.listTeam = listTeam;
+    }
 
 
     String namePlayer = "";
-    default String showName() {
+
+
+    String showName() {
         System.out.println(this);
         return namePlayer;
     }
@@ -19,21 +24,30 @@ public interface Team {
     //ArrayList for every generated or already available team
 
     String role = "";
-    default String play() {
+    String play() {
         System.out.println(this);
         return role;
     };
 
     String team = "";
-    default String teamName() {
+    String teamName() {
         System.out.println(this);
         return team;
     }
 
 
+    static ArrayList<String> listTeam = new ArrayList<>();
+    static String listTeamName() {
+        for (String listTeam : listTeam) {
+            System.out.println(listTeam);
+
+        }
+        return listTeam.get(0);
+    }
+
 
     //these are more complicated
-    default String createNewTeam() {
+    static String createNewTeam() {
 
         ArrayList<String> newTeamList = new ArrayList<>();
 
@@ -42,6 +56,7 @@ public interface Team {
             System.out.println("Enter team-members (type 'end' to stop):");
             while (!(input = scanner.nextLine()).equals("end")) {
                 newTeamList.add(input);
+                scanner.close();
             }
         }
 
@@ -49,17 +64,20 @@ public interface Team {
 
         //newTeamList.stream(member).forEach(member -> System.out.println(member));
         //System.out.println("The ArrayList contains: " + newTeamList);
-        return this.team;
+
+
+        return newTeamList.get(newTeamList.size() - 1);
     };
 
 
-    default String createNewPlayer() {
+    static String createNewPlayer() {
         ArrayList<String> newPlayerList = new ArrayList<>();
         String input;
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter player name:");
             while (!(input = scanner.nextLine()).equals("end")) {
                 newPlayerList.add(input);
+                scanner.close();
             }
         }
         System.out.println("The ArrayList contains: " + newPlayerList);
@@ -73,4 +91,37 @@ public interface Team {
 
 
 
+
+    public String getNamePlayer() {
+        return namePlayer;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public ArrayList<String> getListTeam() {
+        return listTeam;
+    }
+
+
+    public void setNamePlayer(String namePlayer) {
+        this.namePlayer = namePlayer;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
+    public void setListTeam(ArrayList<String> listTeam) {
+        this.listTeam = listTeam;
+    }
 }

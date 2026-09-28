@@ -1,9 +1,15 @@
 package Ch;
 
-public class Goalie implements Team {
+import java.util.ArrayList;
+
+public class Goalie extends Team {
 
 
     double bodySize;
+
+    public Goalie(String namePlayer, String role, String team, ArrayList<String> listTeam) {
+        super(namePlayer, role, team, listTeam);
+    }
 
     @Override
     public String showName() {
@@ -17,18 +23,18 @@ public class Goalie implements Team {
 
     @Override
     public String teamName() {
-        return Team.super.teamName();
+        return teamName();
     }
 
-    @Override
-    public String createNewTeam() {
-        return Team.super.createNewTeam();
+    //@Override
+    public static String createNewTeam() {
+        return createNewTeam();
     }
 
-    @Override
-    public String createNewPlayer() {
+    //@Override
+    public static String createNewPlayer() {
 
-        return Team.super.createNewPlayer();
+        return createNewPlayer();
     }
 
 
