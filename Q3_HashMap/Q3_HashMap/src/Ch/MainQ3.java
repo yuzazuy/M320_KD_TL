@@ -6,13 +6,10 @@ package Ch;
 public class MainQ3 {
 
     /**
-     * Not used: the class only holds the static {@code main} method and a constant.
+     * Not used: the class only holds the static {@code main} method.
      */
     private MainQ3() {
     }
-
-    /** Default file, relative to the working directory (the Q3_HashMap project folder in IntelliJ). */
-    public static final String DEFAULT_FILE = "airports.csv";
 
     /**
      * Entry point of the program.
@@ -22,7 +19,7 @@ public class MainQ3 {
     public static void main(String[] args) {
 
         AirportMap map = new AirportMap();
-        AirportMenu.load(DEFAULT_FILE, map);
+        AirportMenu.loadDefault(map);
 
         AirportMenu menu = new AirportMenu(map);
         menu.userMenu();

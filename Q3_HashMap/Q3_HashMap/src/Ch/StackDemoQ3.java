@@ -26,7 +26,7 @@ public class StackDemoQ3 {
      */
     public static void main(String[] args) {
         AirportMap map = new AirportMap();
-        AirportMenu.load(MainQ3.DEFAULT_FILE, map);
+        AirportMenu.loadDefault(map);
 
         flyRoundTrip(new ArrayStack<>(), map);
         flyRoundTrip(new LinkedStack<>(), map);

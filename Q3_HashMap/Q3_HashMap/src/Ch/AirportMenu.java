@@ -106,17 +106,18 @@ public class AirportMenu {
      * Asks for a file name and loads it. Pressing Enter loads the default file.
      */
     private void loadFile() {
-        System.out.println("Enter the file name (press Enter for " + MainQ3.DEFAULT_FILE + "):");
+        System.out.println("Enter the file name (press Enter for the default "
+                + AirportFileReader.DEFAULT_RESOURCE + "):");
         String fileName = scanner.nextLine().trim();
         if (fileName.isEmpty()) {
-            fileName = MainQ3.DEFAULT_FILE;
+            loadDefault(map);
+        } else {
+            load(fileName, map);
         }
-        load(fileName, map);
     }
 
     /**
-     * Loads a file into the map and prints the result.
-     * Used by the menu and by {@link MainQ3} at the start.
+     * Loads a file from disk into the map and prints the result.
      *
      * @param fileName path of the CSV file
      * @param map      the map the airports are put into
@@ -124,10 +125,34 @@ public class AirportMenu {
     public static void load(String fileName, AirportMap map) {
         try {
             AirportFileReader.readFile(fileName, map);
-            System.out.println("File loaded, the map now has " + map.size() + " airports.");
+            printLoaded(map);
         } catch (IOException e) {
             // Shows the full path, so the user sees where the program looked for the file
             System.out.println("Could not read file: " + Path.of(fileName).toAbsolutePath());
         }
+    }
+
+    /**
+     * Loads the default file that is shipped with the classes into the map and prints the result.
+     * Used by the menu and at the start of {@link MainQ3} and {@link StackDemoQ3}.
+     *
+     * @param map the map the airports are put into
+     */
+    public static void loadDefault(AirportMap map) {
+        try {
+            AirportFileReader.readDefault(map);
+            printLoaded(map);
+        } catch (IOException e) {
+            System.out.println("Could not load the default airports: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Prints how many airports the map has after loading.
+     *
+     * @param map the map that was loaded
+     */
+    private static void printLoaded(AirportMap map) {
+        System.out.println("File loaded, the map now has " + map.size() + " airports.");
     }
 }
