@@ -332,26 +332,37 @@ The same name can be booked twice. Removing then deletes only one of them.
   - `get(code)` returns the name, or `null` if the code is not found.
   - `containsKey`, `size`, `clear`, and `printAll` (loops over `keySet()`; a
     `HashMap` has no fixed order).
-- **`AirportFileReader.readFile(fileName, map)`**:
-  1. `Files.readAllLines(...)` reads the whole file (UTF-8). If the file cannot
-     be read, this throws `IOException`, which is passed on to the caller.
-  2. The loop starts at index **1** to skip the header
-     `AIRPORT CODE,AIRPORT`.
-  3. For each line: trim it, skip empty lines, then `split(",", 2)`. The `2`
-     means it splits only at the **first** comma, so a name may contain commas.
-  4. No comma or an empty code → print "Line *n* skipped" and continue.
-  5. The code is changed to upper case. `map.put` returns non-null for a
-     duplicate code, so the reader reports the replaced name with its line number.
-- **`AirportMenu`**: the console menu. Its static `load(fileName, map)` calls
-  the reader and prints the new map size. If an `IOException` happens, it prints
-  the **absolute path** so the user can see where the program looked for the file.
+- **`airports.csv`**: lies in `src/Ch`, next to the classes. IntelliJ copies
+  it into the output folder with the `.class` files, so it is on the
+  **classpath**. That is why the default file is found no matter which folder
+  the program starts from or which computer it runs on.
+- **`AirportFileReader`**: two ways to get the lines, one shared parser.
+  - `readDefault(map)`: reads `DEFAULT_RESOURCE = "airports.csv"` with
+    `AirportFileReader.class.getResourceAsStream(...)`, which looks in the
+    package `Ch` on the classpath. If the file is missing, it throws a
+    `FileNotFoundException` (an `IOException`).
+  - `readFile(fileName, map)`: reads any file on disk with
+    `Files.readAllLines(...)`. A relative path starts at the working directory.
+    If the file cannot be read, this throws `IOException`.
+  - Both read UTF-8 and pass the lines to the private `putLines(lines, map)`:
+    1. The loop starts at index **1** to skip the header
+       `AIRPORT CODE,AIRPORT`.
+    2. For each line: trim it, skip empty lines, then `split(",", 2)`. The `2`
+       means it splits only at the **first** comma, so a name may contain commas.
+    3. No comma or an empty code → print "Line *n* skipped" and continue.
+    4. The code is changed to upper case. `map.put` returns the old name for a
+       duplicate code. The reader only reports it with its line number if the
+       name **really changes**, so loading the same file twice prints nothing.
+- **`AirportMenu`**: the console menu. Its static `loadDefault(map)` and
+  `load(fileName, map)` call the reader and print the new map size. If
+  `load` fails, it prints the **absolute path** so the user can see where the
+  program looked for the file.
 - **`AirportInputException`**: the error type for bad menu input.
-- **`MainQ3`**: `DEFAULT_FILE = "airports.csv"`. This path is relative to the
-  working directory, which is the project folder in IntelliJ.
+- **`MainQ3`**: creates the map and the menu.
 
 ### Flow of `MainQ3`
-1. Create an empty `AirportMap` and call `AirportMenu.load(DEFAULT_FILE, map)`
-   to fill it with about 155 airports.
+1. Create an empty `AirportMap` and call `AirportMenu.loadDefault(map)` to fill
+   it with 155 airports.
 2. Menu loop:
    - **1 search**: input is trimmed and changed to upper case, so `jfk` finds
      `JFK`. `get` returning `null` → "No airport found".
@@ -360,8 +371,9 @@ The same name can be booked twice. Removing then deletes only one of them.
      **before** asking for the name. The name must not be empty. Otherwise an
      `AirportInputException` is thrown. The return value of `put` decides
      between "was added" and "already existed, … was replaced".
-   - **4 load file**: reads a file name; Enter alone means the default file.
-     The entries are added to the existing map (it is not cleared first).
+   - **4 load file**: reads a file name and calls `load`; Enter alone calls
+     `loadDefault` instead. The entries are added to the existing map (it is
+     not cleared first).
    - **5 exit**.
 
 ### `SimpleStack<T>`, its two implementations and `StackDemoQ3` (second `main`)

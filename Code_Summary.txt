@@ -19,8 +19,9 @@ the projects, so V1, V2, V3 and D2 can also be source roots of the main project
                                               Ch.StackDemoQ3 Own generic stack (LIFO)
 
 How to run: open the inner project folder in IntelliJ (File > Open, e.g.
-Q3_HashMap\Q3_HashMap) and run the main class. Q3 reads airports.csv relative
-to its project folder.
+Q3_HashMap\Q3_HashMap) and run the main class. Q3 loads its default
+airports.csv from the classpath (it lies in src/Ch), so it works from any
+project and any working directory.
 
 All classes have JavaDoc comments (checked with javadoc -Xdoclint:all, no
 warnings). All .java files are plain ASCII.
@@ -111,19 +112,23 @@ MainD2                creates flight LX318, starts the menu
 
 Q3 - HASHMAP WITH AIRPORTS (map, CSV parsing, generics)
 -------------------------------------------------------
-airports.csv           copy of the given file: header + 155 airports (CODE,Name)
+src/Ch/airports.csv    copy of the given file: header + 155 airports (CODE,Name);
+                       lies next to the classes, so it is on the classpath
 AirportMap             wraps HashMap<String, String> (code -> name):
                        put() replaces the old value (no duplicate keys),
                        get() returns null if not found, containsKey, size,
                        clear, printAll
-AirportFileReader      readFile(): skips the header and blank lines, splits at
-                       the first comma, trims, codes in upper case; reports
-                       duplicates and broken lines with the line number
+AirportFileReader      readDefault(): reads airports.csv from the classpath;
+                       readFile(): reads any file on disk; both skip the
+                       header and blank lines, split at the first comma, trim,
+                       codes in upper case; report broken lines and duplicates
+                       whose name really changes, with the line number
 AirportMenu            1 search by code (jfk finds JFK), 2 show all,
                        3 add/replace (code must have 3 letters), 4 load file,
-                       5 exit; load() shows the full path if a file is missing
+                       5 exit; Enter in 4 loads the default file;
+                       load() shows the full path if a file is missing
 AirportInputException  thrown for invalid input, caught once in the menu
-MainQ3                 loads airports.csv, starts the menu
+MainQ3                 loads the default airports.csv, starts the menu
 SimpleStack<T>         own generic stack interface (LIFO): push, pop, peek,
                        size; isEmpty() is a default method
 ArrayStack<T>          implements SimpleStack<T> with an ArrayList<T>
