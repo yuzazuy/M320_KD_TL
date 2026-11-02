@@ -1,0 +1,153 @@
+==============================================================================
+M320 - CODE SUMMARY (state of 2026-10-26, branch KaraTest, not committed)
+==============================================================================
+
+OVERVIEW
+--------
+Each exercise is its own IntelliJ project folder with its own .idea and .iml.
+All classes use the package "Ch" (D1 uses "ch"). Class names are unique across
+the projects, so V1, V2, V3 and D2 can also be source roots of the main project
+(which is how .idea/M320_KD_TL.iml is set up now).
+
+  Folder                                      Main class     Topic
+  D1_Heizung_Aufgabe                          ch.Main        Classes, input loop
+  V1_Spezialklassen_Employee/...Employee      Ch.Main        Inheritance, encapsulation
+  V2_Fussball_Mannschaft/...Mannschaft        Ch.MainV2      Overriding, polymorphism
+  V3_Waffen_Interface/...Interface            Ch.MainV3      Interface, aggregation (Strategy)
+  D2_Flug_Passagiere/...Passagiere            Ch.MainD2      1:n relationship, delegation
+  Q3_HashMap/Q3_HashMap                       Ch.MainQ3      HashMap, CSV parsing
+                                              Ch.StackDemoQ3 Own generic stack (LIFO)
+
+How to run: open the inner project folder in IntelliJ (File > Open, e.g.
+Q3_HashMap\Q3_HashMap) and run the main class. Q3 reads airports.csv relative
+to its project folder.
+
+All classes have JavaDoc comments (checked with javadoc -Xdoclint:all, no
+warnings). All .java files are plain ASCII.
+
+
+D1 - HEATER
+-----------
+Heater   temperature, min, max, increment (private, getters/setters)
+         selectHeater(heaters, scanner): lets the user pick a heater, asks
+           again until the number is valid
+         userInput(scanner): + raises, - lowers the temperature, never
+           outside min..max
+Main     3 heaters, loop: choose heater, change temperature, choose another
+         heater (1) or quit (0). After an invalid answer it asks again until
+         the answer is 0 or 1 (bug fixed today).
+
+
+V1 - EMPLOYEES (inheritance)
+----------------------------
+Employee          base class: name, id, salary, hours
+                  calculatePay() = salary * hours, prints the pay
+FullTimeEmployee  extends Employee: hourly_rate, hours_worked, hasBonus, Bonus
+                  calculate_pay() = rate * hours
+                  calculatePay() (override) = calculate_pay() + bonus if hasBonus
+PartTimeEmployee  extends Employee: hourly_rate, hours_worked
+                  calculatePay() (override) -> calculate_rate() = rate * hours
+Intern            extends Employee: maxHours = 50
+                  internWageCalc(): fixed wage (= salary); hours above maxHours
+                  are set back to maxHours
+                  calculatePay() (override) -> internWageCalc()
+EmployeeManager   one ArrayList per subclass (task 2): add methods, printAllPays()
+Main              creates one employee per type, then uses EmployeeManager
+
+
+V2 - FOOTBALL TEAM (overriding, polymorphism)
+---------------------------------------------
+Team      superclass of all players: namePlayer, role, team
+          static lists: players (ArrayList<Team>), listTeam (team names)
+          static Scanner shared by the whole program
+          play(): "<name> (team X) runs onto the pitch."
+          playAll(): calls play() on every player -> each subclass runs its
+            own version (polymorphism)
+          listTeamName(), createNewTeam(), createNewPlayer()
+          createNewPlayer(): name, team, role (1/2/3); the player and a new
+            team are only saved if the role is valid
+Goalie    extends Team, overrides showName() and play()
+Defender  extends Team, overrides play()
+Striker   extends Team, overrides play(), jogTraining()
+Menu      1 list teams, 2 create player, 3 create team, 4 play, 5 exit
+          non-number input -> "Invalid input!" (InputMismatchException)
+MainV2    creates team "FC Zurich" with Goalie, Defender, Striker, starts menu
+
+
+V3 - WEAPONS (interface, aggregation, Strategy pattern)
+------------------------------------------------------
+WeaponBehavior            interface with useWeapon()
+SwordBehavior, StaffBehavior, DaggerBehavior   implement WeaponBehavior
+GameCharacter             name + WeaponBehavior (HAS-A); fight() delegates to
+                          weaponBehavior.useWeapon(); setWeaponBehavior()
+                          changes the weapon at runtime
+Warrior, Mage, Rogue      extend GameCharacter, set a default weapon
+CharacterMenu             1 create, 2 list, 3 all walk and fight,
+                          4 change weapon, 5 exit; each input is checked
+                          right after it is typed
+CharacterInputException   thrown for invalid input, caught once in the menu
+MainV3                    creates Conan, Gandalf, Garrett, starts the menu
+
+
+D2 - FLIGHT AND PASSENGERS (1:n, delegation)
+--------------------------------------------
+Passenger             name; printName()
+Flight                flightNumber + ArrayList<Passenger> (1:n)
+                      addPassenger(), removePassenger(name) (ignores
+                      upper/lower case, removes the first match)
+                      printPassengerList(): delegates to passenger.printName()
+FlightMenu            1 book, 2 remove, 3 list, 4 exit
+FlightInputException  thrown for invalid input, caught once in the menu
+MainD2                creates flight LX318, starts the menu
+
+
+Q3 - HASHMAP WITH AIRPORTS (map, CSV parsing, generics)
+-------------------------------------------------------
+airports.csv           copy of the given file: header + 155 airports (CODE,Name)
+AirportMap             wraps HashMap<String, String> (code -> name):
+                       put() replaces the old value (no duplicate keys),
+                       get() returns null if not found, containsKey, size,
+                       clear, printAll
+AirportFileReader      readFile(): skips the header and blank lines, splits at
+                       the first comma, trims, codes in upper case; reports
+                       duplicates and broken lines with the line number
+AirportMenu            1 search by code (jfk finds JFK), 2 show all,
+                       3 add/replace (code must have 3 letters), 4 load file,
+                       5 exit; load() shows the full path if a file is missing
+AirportInputException  thrown for invalid input, caught once in the menu
+MainQ3                 loads airports.csv, starts the menu
+SimpleStack<T>         own generic stack (LIFO) backed by ArrayList<T>:
+                       push, pop, peek, isEmpty, size; pop/peek on an empty
+                       stack throw EmptyStackException
+StackDemoQ3            own main: pushes a trip (JFK, ORD, DEN, LAX; ZRH is
+                       skipped because it is not in the file), then pops the
+                       way back in reverse order
+
+
+CONCEPTS - WHERE TO FIND THEM
+-----------------------------
+Inheritance      V1 (Employee), V2 (Team), V3 (GameCharacter)
+Overriding       V1 calculatePay(), V2 play()
+Polymorphism     V2 Team.playAll(), V3 weaponBehavior.useWeapon()
+Interface        V3 WeaponBehavior
+Aggregation      V3 character HAS a weapon, D2 flight HAS passengers
+Delegation       D2 Flight -> Passenger.printName(),
+                 V3 fight() -> useWeapon(), Q3 AirportMap -> HashMap
+Generics (used)  ArrayList<...> everywhere, HashMap<String, String> in Q3
+Generics (own)   Q3 SimpleStack<T>
+Exceptions       own exception classes in V3, D2, Q3; IOException in Q3;
+                 EmptyStackException in SimpleStack
+Design pattern   Strategy (V3); V3, D2 and Q3 share the structure
+                 model - (file reader) - menu - main
+
+
+OPEN POINTS (original code, not changed on purpose)
+---------------------------------------------------
+- Package name "Ch" should be lowercase by convention.
+- V1: snake_case names (hourly_rate), field "Bonus" and variables "Jessika",
+  "Paul" start with upper case; unused import BigDecimal; "};" after methods.
+- V2: "Menu extends Team" and Team as player superclass (a "Player" class
+  would fit better); static mutable lists.
+- D1: "while (startCondition == true)" can be "while (startCondition)".
+- All menus end with an exception if the input stream is closed (Ctrl+D);
+  normal typing in IntelliJ is not affected.
