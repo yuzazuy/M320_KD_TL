@@ -26,6 +26,10 @@ is wrong, and the menu catches it in **one** `try/catch` around the `switch`.
 It prints the message and shows the menu again, so the program never crashes
 because of bad input.
 
+Classes that only hold `static` members (all `Main` classes, `StackDemoQ3`,
+`AirportFileReader`) have a `private` constructor, so no object of them can be
+created by mistake.
+
 ---
 
 ## D1 – Heater (`D1_Heizung_Aufgabe`)
@@ -185,8 +189,8 @@ are not used.
 
 **Notes:**
 - `Goalie.createNewTeam()` and `createNewPlayer()` are static, so they *hide*
-  the `Team` methods instead of overriding them. That is why `@Override` is
-  commented out.
+  the `Team` methods instead of overriding them. That is why they have no
+  `@Override`.
 - `jogTraining()` and `bodySize` exist but are never used.
 
 ---
@@ -409,8 +413,8 @@ The same name can be booked twice. Removing then deletes only one of them.
 | Own exception classes | V3, D2, Q3 (`...InputException extends Exception`) |
 | Collections | `ArrayList` everywhere, `HashMap` in Q3 |
 | Own generic types | Q3 `SimpleStack<T>`, `ArrayStack<T>`, `LinkedStack<T>` |
+| File input | Q3 `AirportFileReader` (`Files.readAllLines`, `IOException`) |
 
 V1 `printAllPays()` only uses **overriding**: each list has a concrete
 subclass type, so no method is called through an `Employee` variable. It is
 not an example of polymorphism.
-| File input | Q3 `AirportFileReader` (`Files.readAllLines`, `IOException`) |
