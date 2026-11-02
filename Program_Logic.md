@@ -392,21 +392,31 @@ The same name can be booked twice. Removing then deletes only one of them.
   `below` is the old top. `pop` takes the element of the top node and makes
   `top.below` the new top. A counter keeps `size()` fast.
 - In both, `pop` or `peek` on an empty stack → `EmptyStackException`.
-- `StackDemoQ3`:
-  1. Loads the CSV into a map.
-  2. Calls `flyRoundTrip(new ArrayStack<>(), map)` and then
-     `flyRoundTrip(new LinkedStack<>(), map)`. The parameter type is
-     `SimpleStack<String>`, so the demo doesn't know which class it gets
-     (polymorphism through the interface). Both runs print the same result,
-     with only the class name in the header being different.
-  3. **Outbound trip** (`flyOutbound`): goes through `TRIP =
-     {"JFK","ORD","ZRH","DEN","LAX"}` and pushes only codes that `containsKey`
-     finds. ZRH is not in the file, so it is skipped. The stack becomes JFK,
-     ORD, DEN, LAX (LAX on top). `peek()` then shows LAX without removing it.
-  4. **Way back** (`flyBack`): `while (!isEmpty()) pop()` returns
-     LAX → DEN → ORD → JFK, the reverse order (last in, first out).
-  5. One more `pop()` on the now empty stack throws `EmptyStackException`. The
-     demo catches it and prints "you are back home".
+- `StackDemoQ3`: loads the default CSV into a map (`AirportMenu.loadDefault`)
+  and starts the `RouteMenu`.
+- `RouteMenu`: the interactive stack demo, built like the other menus (one
+  `try/catch` around the `switch`, `AirportInputException` for bad input).
+  1. **Stack type:** asks `1` = `ArrayStack`, `2` = `LinkedStack` until the
+     answer is valid. The field `route` has the type `SimpleStack<String>`, so
+     everything after this works with either class (polymorphism through the
+     interface).
+  2. Menu loop:
+     - **1 fly to an airport** (`push`): reads a code (upper case). If the map
+       does not contain it → exception, no flight. Otherwise it is pushed and
+       the menu prints "Landed in *code* → *name* (stack size: *n*)".
+     - **2 fly the example trip**: pushes `JFK, ORD, ZRH, DEN, LAX`, skipping
+       ZRH because it is not in the file. LAX ends up on top.
+     - **3 current airport** (`peek`): shows the top code without removing it,
+       or "You are at home" if the stack is empty.
+     - **4 fly back one airport** (`pop`): removes the top code and prints
+       "Leaving …". `pop()` on an empty stack throws `EmptyStackException`; the
+       menu catches it and prints "you are already home".
+     - **5 fly all the way home**: `while (!isEmpty())` pops one airport after
+       the other, in reverse order (last in, first out).
+     - **6 exit**.
+
+  **Example:** fly to SFO, then the example trip. The stack is SFO, JFK, ORD,
+  DEN, LAX (LAX on top). Flying home leaves LAX → DEN → ORD → JFK → SFO.
 
 ---
 
@@ -418,7 +428,7 @@ The same name can be booked twice. Removing then deletes only one of them.
 | Inheritance (`extends`, `super(...)`) | V1 `Employee`, V2 `Team`, V3 `GameCharacter`, D2 `Passenger` |
 | Abstract class / method | V3 `GameCharacter`, D2 `Passenger` (`getTravelClass()`, `getBaggageAllowanceKg()`) |
 | Overriding (`@Override`) | V1 `calculatePay()`, V2 `play()` / `showName()`, D2 `printBoardingInfo()` |
-| Polymorphism (dynamic binding) | V2 `playAll()`, V3 `useWeapon()`, D2 `printPassengerList()` / `getTotalBaggageAllowanceKg()`, Q3 `flyRoundTrip(SimpleStack<String>)` |
+| Polymorphism (dynamic binding) | V2 `playAll()`, V3 `useWeapon()`, D2 `printPassengerList()` / `getTotalBaggageAllowanceKg()`, Q3 `RouteMenu` (field `SimpleStack<String> route`) |
 | Interface | V3 `WeaponBehavior`, Q3 `SimpleStack<T>` (with a `default` method) |
 | Aggregation / HAS-A | V3 character has a weapon, D2 flight has passengers |
 | Delegation | V3 `fight()` → `useWeapon()`, D2 `printPassengerList()` → `printBoardingInfo()`, Q3 `AirportMap` → `HashMap` |
