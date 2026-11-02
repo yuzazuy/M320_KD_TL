@@ -31,7 +31,6 @@ public class Intern extends Employee {
      */
     public double internWageCalc() {
         System.out.println("========================");
-        // Makes sure the maximum hours are never exceeded
         if (super.getHours() > maxHours) {
             System.out.println("Hours is greater than max Hours, hours set to " + maxHours);
             setHours(maxHours);

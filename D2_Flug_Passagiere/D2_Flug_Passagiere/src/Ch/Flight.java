@@ -1,6 +1,8 @@
 package Ch;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Flight with a list of passengers.
@@ -11,7 +13,7 @@ public class Flight {
     /** Number of the flight, e.g. "LX318". */
     private String flightNumber;
     /** All passengers booked on this flight. */
-    private ArrayList<Passenger> passengers = new ArrayList<>();
+    private final List<Passenger> passengers = new ArrayList<>();
 
     /**
      * Creates a new flight without passengers.
@@ -41,7 +43,8 @@ public class Flight {
         for (Passenger passenger : passengers) {
             if (passenger.getName().equalsIgnoreCase(name)) {
                 passengers.remove(passenger);
-                // Return right away: the list must not be used further after removing
+                // Return right away: going on with the loop after remove() would throw
+                // a ConcurrentModificationException
                 return true;
             }
         }
@@ -49,17 +52,34 @@ public class Flight {
     }
 
     /**
-     * Prints all passengers of the flight.
-     * Delegation: each passenger prints its own name.
+     * Prints all passengers of the flight and their total baggage allowance.
+     * Delegation and polymorphism: each passenger prints its own boarding info,
+     * in the way of its own travel class.
      */
     public void printPassengerList() {
         System.out.println("Passengers of flight " + flightNumber + ":");
         if (passengers.isEmpty()) {
             System.out.println("No passengers yet.");
+            return;
         }
         for (Passenger passenger : passengers) {
-            passenger.printName();
+            passenger.printBoardingInfo();
         }
+        System.out.println("Total baggage allowance: " + getTotalBaggageAllowanceKg() + " kg");
+    }
+
+    /**
+     * Adds up the baggage allowance of all passengers.
+     * Each passenger returns the allowance of its own travel class.
+     *
+     * @return the total baggage allowance in kilograms
+     */
+    public int getTotalBaggageAllowanceKg() {
+        int total = 0;
+        for (Passenger passenger : passengers) {
+            total += passenger.getBaggageAllowanceKg();
+        }
+        return total;
     }
 
     /**
@@ -72,11 +92,12 @@ public class Flight {
     }
 
     /**
-     * Returns the list of passengers.
+     * Returns the passengers as a read-only list.
+     * Passengers can only be added or removed through the flight.
      *
-     * @return all passengers of the flight
+     * @return all passengers of the flight, cannot be changed
      */
-    public ArrayList<Passenger> getPassengers() {
-        return passengers;
+    public List<Passenger> getPassengers() {
+        return Collections.unmodifiableList(passengers);
     }
 }

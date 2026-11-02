@@ -4,6 +4,13 @@ package Ch;
  * Starts the V1 exercise: creates employees and prints their pay.
  */
 public class Main {
+
+    /**
+     * Not used: the class only holds the static {@code main} method.
+     */
+    private Main() {
+    }
+
     /**
      * Entry point of the program.
      *

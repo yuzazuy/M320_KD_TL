@@ -5,6 +5,13 @@ package Ch;
  * Starts the V2 exercise: creates a team with players and opens the menu.
  */
 public class MainV2 {
+
+    /**
+     * Not used: the class only holds the static {@code main} method.
+     */
+    private MainV2() {
+    }
+
     /**
      * Entry point of the program.
      *

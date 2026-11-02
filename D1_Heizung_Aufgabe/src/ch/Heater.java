@@ -49,7 +49,6 @@ public class Heater {
         System.out.println("Your answer here: ");
 
         int choice = -1;
-        // Repeat until the choice is a valid index
         while (choice < 0 || choice >= heaters.length) {
             String input = scanner.nextLine();
             try {

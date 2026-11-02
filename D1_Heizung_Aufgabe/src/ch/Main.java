@@ -5,6 +5,13 @@ import java.util.Scanner;
  * Starts the D1 exercise: lets the user choose heaters and change their temperature.
  */
 public class Main {
+
+    /**
+     * Not used: the class only holds the static {@code main} method.
+     */
+    private Main() {
+    }
+
     /**
      * Entry point of the program.
      *
@@ -37,7 +44,6 @@ public class Main {
             } else if (answer.equals("0")) {
                 programRunning = false;
             } else {
-                // Ask again until the answer is valid
                 while (!answer.equals("0") && !answer.equals("1")) {
                     System.out.println("Invalid choice");
                     System.out.println("Choose another heater (1) or quit program (0):");

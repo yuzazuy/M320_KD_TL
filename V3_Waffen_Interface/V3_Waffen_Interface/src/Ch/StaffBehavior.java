@@ -4,6 +4,13 @@ package Ch;
  * Weapon behavior with a magic staff.
  */
 public class StaffBehavior implements WeaponBehavior {
+
+    /**
+     * Creates the staff behavior.
+     */
+    public StaffBehavior() {
+    }
+
     /**
      * Prints that a fireball is cast with the staff.
      */

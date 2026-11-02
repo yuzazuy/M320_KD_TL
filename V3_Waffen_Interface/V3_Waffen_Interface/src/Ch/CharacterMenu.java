@@ -93,7 +93,6 @@ public class CharacterMenu {
         if (characters.isEmpty()) {
             System.out.println("No characters yet.");
         }
-        // The number shown is the index + 1, so it starts at 1
         for (int i = 0; i < characters.size(); i++) {
             GameCharacter character = characters.get(i);
             System.out.println((i + 1) + ": " + character.getCharacterName()

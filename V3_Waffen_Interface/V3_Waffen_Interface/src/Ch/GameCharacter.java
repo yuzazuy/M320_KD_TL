@@ -4,8 +4,9 @@ package Ch;
  * Base class of all game characters.
  * Called GameCharacter because "Character" already exists in java.lang.
  * The character HAS a {@link WeaponBehavior} (aggregation) instead of overriding the fight method.
+ * Abstract: only the concrete types {@link Warrior}, {@link Mage} and {@link Rogue} can be created.
  */
-public class GameCharacter {
+public abstract class GameCharacter {
 
     /** Name of the character. */
     private String characterName;
@@ -18,7 +19,7 @@ public class GameCharacter {
      * @param characterName  name of the character
      * @param weaponBehavior weapon the character uses
      */
-    public GameCharacter(String characterName, WeaponBehavior weaponBehavior) {
+    protected GameCharacter(String characterName, WeaponBehavior weaponBehavior) {
         this.characterName = characterName;
         this.weaponBehavior = weaponBehavior;
     }

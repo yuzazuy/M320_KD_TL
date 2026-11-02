@@ -8,6 +8,12 @@ import java.util.HashMap;
  */
 public class AirportMap {
 
+    /**
+     * Creates an empty airport map.
+     */
+    public AirportMap() {
+    }
+
     /** The HashMap with all airports: code -&gt; name. */
     private HashMap<String, String> airports = new HashMap<>();
 

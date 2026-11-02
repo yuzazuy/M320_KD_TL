@@ -56,9 +56,9 @@ public class FlightMenu {
     }
 
     /**
-     * Asks for a name and books a new passenger with it.
+     * Asks for a name and a travel class and books a new passenger with them.
      *
-     * @throws FlightInputException if the name is empty
+     * @throws FlightInputException if the name is empty or the travel class is invalid
      */
     private void addPassenger() throws FlightInputException {
         System.out.println("Enter your name:");
@@ -66,8 +66,28 @@ public class FlightMenu {
         if (name.isEmpty()) {
             throw new FlightInputException("Name must not be empty.");
         }
-        flight.addPassenger(new Passenger(name));
-        System.out.println(name + " was booked on flight " + flight.getFlightNumber() + ".");
+
+        System.out.println("Travel class? 1 = Economy, 2 = Business");
+        Passenger passenger = createPassenger(scanner.nextLine().trim(), name);
+        flight.addPassenger(passenger);
+        System.out.println(name + " was booked in " + passenger.getTravelClass()
+                + " on flight " + flight.getFlightNumber() + ".");
+    }
+
+    /**
+     * Creates the passenger subclass that matches the chosen travel class.
+     *
+     * @param travelClass the menu choice, "1" for economy or "2" for business
+     * @param name        name of the passenger
+     * @return the new passenger
+     * @throws FlightInputException if the travel class is not "1" or "2"
+     */
+    private Passenger createPassenger(String travelClass, String name) throws FlightInputException {
+        return switch (travelClass) {
+            case "1" -> new EconomyPassenger(name);
+            case "2" -> new BusinessPassenger(name);
+            default -> throw new FlightInputException("Invalid travel class, passenger not booked.");
+        };
     }
 
     /**

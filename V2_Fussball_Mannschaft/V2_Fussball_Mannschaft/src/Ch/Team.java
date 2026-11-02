@@ -46,8 +46,6 @@ public class Team {
         return namePlayer;
     }
 
-    //ArrayList for every generated or already available team
-
     /** Role of the player (e.g. "Goalie"). */
     String role = "";
     /**
@@ -88,7 +86,6 @@ public class Team {
         }
         for (String listTeam : listTeam) {
             System.out.println("Team " + listTeam + ":");
-            // Only the players of this team are shown
             for (Team player : players) {
                 if (player.team.equals(listTeam)) {
                     player.showName();
@@ -112,7 +109,6 @@ public class Team {
     }
 
 
-    //these are more complicated
     /**
      * Asks the user for a team name and adds it to the team list if it is new.
      *
@@ -122,7 +118,6 @@ public class Team {
 
         System.out.println("Enter team name:");
         String input = scanner.nextLine();
-        // No duplicate team names
         if (!listTeam.contains(input)) {
             listTeam.add(input);
         }
@@ -174,8 +169,6 @@ public class Team {
     };
 
 
-    //how to add to arrayList?
-    //as a for loop maybe, to fill it up according to index
 
 
 

@@ -6,6 +6,13 @@ import java.util.ArrayList;
  * Starts the V3 exercise: creates default characters and opens the menu.
  */
 public class MainV3 {
+
+    /**
+     * Not used: the class only holds the static {@code main} method.
+     */
+    private MainV3() {
+    }
+
     /**
      * Entry point of the program.
      *

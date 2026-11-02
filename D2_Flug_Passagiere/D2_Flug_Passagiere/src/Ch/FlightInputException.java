@@ -6,6 +6,9 @@ package Ch;
  */
 public class FlightInputException extends Exception {
 
+    /** Version of the class for serialization, required because Exception is serializable. */
+    private static final long serialVersionUID = 1L;
+
     /**
      * Creates the exception with a message for the user.
      *

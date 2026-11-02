@@ -4,6 +4,13 @@ package Ch;
  * Starts the D2 exercise: creates a flight and opens the menu.
  */
 public class MainD2 {
+
+    /**
+     * Not used: the class only holds the static {@code main} method.
+     */
+    private MainD2() {
+    }
+
     /**
      * Entry point of the program.
      *

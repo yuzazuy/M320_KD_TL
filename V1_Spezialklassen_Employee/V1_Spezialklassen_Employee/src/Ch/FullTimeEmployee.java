@@ -58,7 +58,6 @@ public class FullTimeEmployee  extends Employee {
     @Override
     public double calculatePay() {
         double pay = calculate_pay();
-        // The bonus is only added if hasBonus is true
         if (hasBonus) {
             pay = pay + Bonus;
             System.out.println("Pay with bonus is: " + pay);

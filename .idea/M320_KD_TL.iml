@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/V2_Fussball_Mannschaft/V2_Fussball_Mannschaft/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/D2_Flug_Passagiere/D2_Flug_Passagiere/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/V3_Waffen_Interface/V3_Waffen_Interface/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Q3_HashMap/Q3_HashMap/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

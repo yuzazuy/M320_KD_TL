@@ -12,6 +12,12 @@ import java.util.List;
 public class AirportFileReader {
 
     /**
+     * Not used: the class only holds the static {@link #readFile(String, AirportMap)} method.
+     */
+    private AirportFileReader() {
+    }
+
+    /**
      * Reads the file line by line, parses each line and puts it into the map.
      * Wrong lines are skipped with a message, duplicate codes replace the old name.
      *

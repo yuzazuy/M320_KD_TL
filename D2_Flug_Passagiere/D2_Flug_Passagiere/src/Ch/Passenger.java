@@ -2,9 +2,11 @@ package Ch;
 
 /**
  * Passenger of a flight.
- * Knows how to print its own name, which the flight uses via delegation.
+ * Abstract: every passenger books a concrete travel class, see {@link EconomyPassenger}
+ * and {@link BusinessPassenger}. The subclasses decide the travel class and the
+ * baggage allowance, so the flight can treat all passengers the same way (polymorphism).
  */
-public class Passenger {
+public abstract class Passenger {
 
     /** Name of the passenger. */
     private String name;
@@ -14,15 +16,30 @@ public class Passenger {
      *
      * @param name name of the passenger
      */
-    public Passenger(String name) {
+    protected Passenger(String name) {
         this.name = name;
     }
 
     /**
-     * Prints the name of the passenger.
+     * Returns the travel class of the passenger.
+     *
+     * @return the travel class, e.g. "Economy"
      */
-    public void printName() {
-        System.out.println(name);
+    public abstract String getTravelClass();
+
+    /**
+     * Returns how many kilograms of baggage the passenger may check in.
+     *
+     * @return the baggage allowance in kilograms
+     */
+    public abstract int getBaggageAllowanceKg();
+
+    /**
+     * Prints the name, the travel class and the baggage allowance of the passenger.
+     */
+    public void printBoardingInfo() {
+        System.out.println(name + " (" + getTravelClass() + ", "
+                + getBaggageAllowanceKg() + " kg baggage)");
     }
 
     /**

@@ -62,7 +62,6 @@ public class Goalie extends Team {
      *
      * @return the entered team name
      */
-    //@Override
     public static String createNewTeam() {
         return Team.createNewTeam();
     }
@@ -72,7 +71,6 @@ public class Goalie extends Team {
      *
      * @return the entered player name
      */
-    //@Override
     public static String createNewPlayer() {
 
         return Team.createNewPlayer();

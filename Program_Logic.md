@@ -10,8 +10,8 @@ what, in what order the methods are called, and why the code is built that way.
 | `V1_Spezialklassen_Employee` | `Ch.Main` | Inheritance, overriding |
 | `V2_Fussball_Mannschaft` | `Ch.MainV2` | Overriding, polymorphism |
 | `V3_Waffen_Interface` | `Ch.MainV3` | Interface, aggregation, Strategy pattern |
-| `D2_Flug_Passagiere` | `Ch.MainD2` | 1:n relationship, delegation |
-| `Q3_HashMap` | `Ch.MainQ3`, `Ch.StackDemoQ3` | HashMap, CSV file, own generic stack |
+| `D2_Flug_Passagiere` | `Ch.MainD2` | 1:n relationship, delegation, polymorphism |
+| `Q3_HashMap` | `Ch.MainQ3`, `Ch.StackDemoQ3` | HashMap, CSV file, own generic stack interface |
 
 V3, D2 and Q3 share the same layered structure:
 
@@ -214,6 +214,8 @@ GameCharacter (characterName, WeaponBehavior weaponBehavior)   <- HAS-A
   `weaponBehavior.useWeapon()`. The character does not know *which* weapon it
   holds; it only knows the interface. This is **delegation**.
 - `setWeaponBehavior()` swaps the weapon object while the program is running.
+- `GameCharacter` is `abstract` with a `protected` constructor, so only a
+  `Warrior`, `Mage` or `Rogue` can be created, never a character without a type.
 - The subclasses only choose a **default weapon** in their constructor. They do
   not override `fight()`.
 - The class is named `GameCharacter` because `Character` already exists in
@@ -252,21 +254,45 @@ use it at once.
 ## D2 – Flight and Passengers (`D2_Flug_Passagiere`)
 
 **Goal:** a 1:n relationship. One flight has many passengers, and the flight
-lets each passenger do its own part of the work (delegation).
+lets each passenger do its own part of the work (delegation). Passengers travel
+in different classes, and the flight treats all of them the same way
+(polymorphism).
 
 ### Classes
-- **`Passenger`**: `name` and `printName()`.
-- **`Flight`**: `flightNumber` and `ArrayList<Passenger> passengers`
-  (initialised empty, which is the 1:n HAS-A link).
+```
+Passenger  (abstract: name; printBoardingInfo();
+            abstract getTravelClass(), getBaggageAllowanceKg())
+ ├── EconomyPassenger   -> "Economy", 23 kg
+ └── BusinessPassenger  -> "Business", 32 kg, overrides printBoardingInfo()
+                           to add "priority boarding"
+```
+- **`Passenger`**: `abstract`, so a passenger always has a travel class.
+  `printBoardingInfo()` prints "*name* (*class*, *n* kg baggage)". It calls the
+  two abstract methods, and each subclass answers them in its own way.
+- **`EconomyPassenger`, `BusinessPassenger`**: each returns its class name and
+  its baggage allowance (a `private static final` constant). `BusinessPassenger`
+  also overrides `printBoardingInfo()`: it calls `super.printBoardingInfo()` and
+  then adds a "priority boarding" line.
+- **`Flight`**: `flightNumber` and `List<Passenger> passengers`
+  (initialised empty, which is the 1:n HAS-A link). The list type is the
+  superclass, so it holds economy and business passengers together.
   - `addPassenger(p)`: adds `p` to the list.
   - `removePassenger(name)`: searches with `equalsIgnoreCase`, removes the
     **first** match and returns `true` straight away. Returning at once matters
     because changing a list while a for-each loop is still running over it
     throws `ConcurrentModificationException`. Returns `false` if no passenger
     matched.
-  - `printPassengerList()`: prints a header, "No passengers yet." if the list
-    is empty, then calls `passenger.printName()` for each passenger. The flight
-    does not print names itself; it **delegates** this to each passenger.
+  - `printPassengerList()`: prints a header and "No passengers yet." if the
+    list is empty. Otherwise it calls `passenger.printBoardingInfo()` for each
+    passenger and prints the total baggage allowance at the end. The flight
+    does not print the passengers itself; it **delegates** this to each one.
+    The variable type is `Passenger`, but Java runs the method of the
+    **actual** object (dynamic binding), so a business passenger also prints
+    its "priority boarding" line.
+  - `getTotalBaggageAllowanceKg()`: adds up `getBaggageAllowanceKg()` of all
+    passengers. Each one returns the allowance of its own class (polymorphism).
+  - `getPassengers()`: returns a read-only view of the list, so passengers can
+    only be added or removed through the flight.
 - **`FlightMenu`**: the console menu. **`FlightInputException`**: the error
   type for bad input.
 - **`MainD2`**: creates `new Flight("LX318")` and starts the menu.
@@ -274,8 +300,10 @@ lets each passenger do its own part of the work (delegation).
 ### Flow
 Menu loop with `switch (scanner.nextLine().trim())`:
 - **1 book**: reads the name. Empty → `FlightInputException("Name must not be
-  empty.")`. Otherwise `flight.addPassenger(new Passenger(name))` and a
-  confirmation.
+  empty.")`. Then it reads the travel class (`1` = Economy, `2` = Business).
+  `createPassenger()` uses a `switch` to create the matching subclass; any other
+  input → `FlightInputException`, and nobody is booked. Then
+  `flight.addPassenger(passenger)` and a confirmation with the travel class.
 - **2 remove**: reads the name and prints "removed" or "not found" based on
   the `boolean` that `removePassenger` returns.
 - **3 list**: `flight.printPassengerList()`.
@@ -332,22 +360,35 @@ The same name can be booked twice. Removing then deletes only one of them.
      The entries are added to the existing map (it is not cleared first).
    - **5 exit**.
 
-### `SimpleStack<T>` and `StackDemoQ3` (second `main`)
-- `SimpleStack<T>` is a generic **LIFO** stack built on an `ArrayList<T>`. The
-  top of the stack is the **end** of the list:
-  - `push` → `add` to the end
-  - `pop` → `remove(size - 1)`
-  - `peek` → `get(size - 1)`
-  - `pop` or `peek` on an empty stack → `EmptyStackException`
-  - `T` is chosen when the stack is created, e.g. `SimpleStack<String>`.
+### `SimpleStack<T>`, its two implementations and `StackDemoQ3` (second `main`)
+```
+<<interface>> SimpleStack<T> { push, pop, peek, size; default isEmpty() }
+   ├── ArrayStack<T>   -> elements in an ArrayList<T>, top = end of the list
+   └── LinkedStack<T>  -> chain of nodes, each node knows the node below it
+```
+- `SimpleStack<T>` is a generic **LIFO** interface. It only says *what* a stack
+  can do. `isEmpty()` is a `default` method (`size() == 0`), so the classes
+  don't have to write it themselves. `T` is chosen when the stack is created,
+  e.g. `new ArrayStack<String>()`.
+- `ArrayStack<T>`: `push` → `add` to the end, `pop` → `remove(size - 1)`,
+  `peek` → `get(size - 1)`.
+- `LinkedStack<T>`: stores only the `top` node. `push` creates a new node whose
+  `below` is the old top. `pop` takes the element of the top node and makes
+  `top.below` the new top. A counter keeps `size()` fast.
+- In both, `pop` or `peek` on an empty stack → `EmptyStackException`.
 - `StackDemoQ3`:
   1. Loads the CSV into a map.
-  2. **Outbound trip:** goes through `{"JFK","ORD","ZRH","DEN","LAX"}` and
-     pushes only codes that `containsKey` finds. ZRH is not in the file, so it
-     is skipped. The stack becomes JFK, ORD, DEN, LAX (LAX on top).
-  3. `peek()` shows the current airport, LAX, without removing it.
-  4. **Way back:** `while (!isEmpty()) pop()` returns LAX → DEN → ORD → JFK,
-     the reverse order (last in, first out).
+  2. Calls `flyRoundTrip(new ArrayStack<>(), map)` and then
+     `flyRoundTrip(new LinkedStack<>(), map)`. The parameter type is
+     `SimpleStack<String>`, so the demo doesn't know which class it gets
+     (polymorphism through the interface). Both runs print the same result,
+     with only the class name in the header being different.
+  3. **Outbound trip** (`flyOutbound`): goes through `TRIP =
+     {"JFK","ORD","ZRH","DEN","LAX"}` and pushes only codes that `containsKey`
+     finds. ZRH is not in the file, so it is skipped. The stack becomes JFK,
+     ORD, DEN, LAX (LAX on top). `peek()` then shows LAX without removing it.
+  4. **Way back** (`flyBack`): `while (!isEmpty()) pop()` returns
+     LAX → DEN → ORD → JFK, the reverse order (last in, first out).
   5. One more `pop()` on the now empty stack throws `EmptyStackException`. The
      demo catches it and prints "you are back home".
 
@@ -358,13 +399,18 @@ The same name can be booked twice. Removing then deletes only one of them.
 | Concept | Where it is shown |
 |---|---|
 | Encapsulation (private + getters/setters) | all tasks, clearest in D1 `Heater` |
-| Inheritance (`extends`, `super(...)`) | V1 `Employee`, V2 `Team`, V3 `GameCharacter` |
-| Overriding (`@Override`) | V1 `calculatePay()`, V2 `play()` / `showName()` |
-| Polymorphism (dynamic binding) | V2 `playAll()`, V1 `printAllPays()`, V3 `useWeapon()` |
-| Interface | V3 `WeaponBehavior` |
+| Inheritance (`extends`, `super(...)`) | V1 `Employee`, V2 `Team`, V3 `GameCharacter`, D2 `Passenger` |
+| Abstract class / method | V3 `GameCharacter`, D2 `Passenger` (`getTravelClass()`, `getBaggageAllowanceKg()`) |
+| Overriding (`@Override`) | V1 `calculatePay()`, V2 `play()` / `showName()`, D2 `printBoardingInfo()` |
+| Polymorphism (dynamic binding) | V2 `playAll()`, V3 `useWeapon()`, D2 `printPassengerList()` / `getTotalBaggageAllowanceKg()`, Q3 `flyRoundTrip(SimpleStack<String>)` |
+| Interface | V3 `WeaponBehavior`, Q3 `SimpleStack<T>` (with a `default` method) |
 | Aggregation / HAS-A | V3 character has a weapon, D2 flight has passengers |
-| Delegation | V3 `fight()` → `useWeapon()`, D2 `printPassengerList()` → `printName()`, Q3 `AirportMap` → `HashMap` |
+| Delegation | V3 `fight()` → `useWeapon()`, D2 `printPassengerList()` → `printBoardingInfo()`, Q3 `AirportMap` → `HashMap` |
 | Own exception classes | V3, D2, Q3 (`...InputException extends Exception`) |
 | Collections | `ArrayList` everywhere, `HashMap` in Q3 |
-| Own generic class | Q3 `SimpleStack<T>` |
+| Own generic types | Q3 `SimpleStack<T>`, `ArrayStack<T>`, `LinkedStack<T>` |
+
+V1 `printAllPays()` only uses **overriding**: each list has a concrete
+subclass type, so no method is called through an `Employee` variable. It is
+not an example of polymorphism.
 | File input | Q3 `AirportFileReader` (`Files.readAllLines`, `IOException`) |

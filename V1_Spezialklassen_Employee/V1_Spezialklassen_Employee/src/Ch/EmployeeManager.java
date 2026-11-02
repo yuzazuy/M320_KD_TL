@@ -8,6 +8,12 @@ import java.util.ArrayList;
  */
 public class EmployeeManager {
 
+    /**
+     * Creates a manager with three empty lists.
+     */
+    public EmployeeManager() {
+    }
+
     /** All full-time employees. */
     private ArrayList<FullTimeEmployee> fullTimeEmployees = new ArrayList<>();
     /** All part-time employees. */

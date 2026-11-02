@@ -5,6 +5,12 @@ package Ch;
  */
 public class MainQ3 {
 
+    /**
+     * Not used: the class only holds the static {@code main} method and a constant.
+     */
+    private MainQ3() {
+    }
+
     /** Default file, relative to the working directory (the Q3_HashMap project folder in IntelliJ). */
     public static final String DEFAULT_FILE = "airports.csv";
 

@@ -78,7 +78,7 @@ V3 - WEAPONS (interface, aggregation, Strategy pattern)
 ------------------------------------------------------
 WeaponBehavior            interface with useWeapon()
 SwordBehavior, StaffBehavior, DaggerBehavior   implement WeaponBehavior
-GameCharacter             name + WeaponBehavior (HAS-A); fight() delegates to
+GameCharacter             abstract; name + WeaponBehavior (HAS-A); fight() delegates to
                           weaponBehavior.useWeapon(); setWeaponBehavior()
                           changes the weapon at runtime
 Warrior, Mage, Rogue      extend GameCharacter, set a default weapon
@@ -91,12 +91,20 @@ MainV3                    creates Conan, Gandalf, Garrett, starts the menu
 
 D2 - FLIGHT AND PASSENGERS (1:n, delegation)
 --------------------------------------------
-Passenger             name; printName()
-Flight                flightNumber + ArrayList<Passenger> (1:n)
+Passenger             abstract: name; printBoardingInfo(); abstract
+                      getTravelClass() and getBaggageAllowanceKg()
+EconomyPassenger      extends Passenger: "Economy", 23 kg
+BusinessPassenger     extends Passenger: "Business", 32 kg; overrides
+                      printBoardingInfo() to add "priority boarding"
+Flight                flightNumber + List<Passenger> (1:n)
                       addPassenger(), removePassenger(name) (ignores
                       upper/lower case, removes the first match)
-                      printPassengerList(): delegates to passenger.printName()
-FlightMenu            1 book, 2 remove, 3 list, 4 exit
+                      printPassengerList(): delegates to
+                      passenger.printBoardingInfo() (polymorphism), then
+                      prints getTotalBaggageAllowanceKg()
+                      getPassengers() returns a read-only list
+FlightMenu            1 book (name + travel class 1/2), 2 remove, 3 list,
+                      4 exit
 FlightInputException  thrown for invalid input, caught once in the menu
 MainD2                creates flight LX318, starts the menu
 
@@ -116,27 +124,34 @@ AirportMenu            1 search by code (jfk finds JFK), 2 show all,
                        5 exit; load() shows the full path if a file is missing
 AirportInputException  thrown for invalid input, caught once in the menu
 MainQ3                 loads airports.csv, starts the menu
-SimpleStack<T>         own generic stack (LIFO) backed by ArrayList<T>:
-                       push, pop, peek, isEmpty, size; pop/peek on an empty
-                       stack throw EmptyStackException
-StackDemoQ3            own main: pushes a trip (JFK, ORD, DEN, LAX; ZRH is
-                       skipped because it is not in the file), then pops the
-                       way back in reverse order
+SimpleStack<T>         own generic stack interface (LIFO): push, pop, peek,
+                       size; isEmpty() is a default method
+ArrayStack<T>          implements SimpleStack<T> with an ArrayList<T>
+LinkedStack<T>         implements SimpleStack<T> with a chain of nodes
+                       pop/peek on an empty stack throw EmptyStackException
+StackDemoQ3            own main: runs the same trip with an ArrayStack and a
+                       LinkedStack through the interface (polymorphism):
+                       pushes JFK, ORD, DEN, LAX (ZRH is skipped because it
+                       is not in the file), then pops the way back in
+                       reverse order
 
 
 CONCEPTS - WHERE TO FIND THEM
 -----------------------------
-Inheritance      V1 (Employee), V2 (Team), V3 (GameCharacter)
-Overriding       V1 calculatePay(), V2 play()
-Polymorphism     V2 Team.playAll(), V3 weaponBehavior.useWeapon()
-Interface        V3 WeaponBehavior
+Inheritance      V1 (Employee), V2 (Team), V3 (GameCharacter), D2 (Passenger)
+Abstract         V3 GameCharacter, D2 Passenger
+Overriding       V1 calculatePay(), V2 play(), D2 printBoardingInfo()
+Polymorphism     V2 Team.playAll(), V3 weaponBehavior.useWeapon(),
+                 D2 Flight.printPassengerList(), Q3 StackDemoQ3.flyRoundTrip()
+                 (V1 EmployeeManager only overrides: one list per subclass)
+Interface        V3 WeaponBehavior, Q3 SimpleStack<T>
 Aggregation      V3 character HAS a weapon, D2 flight HAS passengers
-Delegation       D2 Flight -> Passenger.printName(),
+Delegation       D2 Flight -> Passenger.printBoardingInfo(),
                  V3 fight() -> useWeapon(), Q3 AirportMap -> HashMap
 Generics (used)  ArrayList<...> everywhere, HashMap<String, String> in Q3
-Generics (own)   Q3 SimpleStack<T>
+Generics (own)   Q3 SimpleStack<T>, ArrayStack<T>, LinkedStack<T>
 Exceptions       own exception classes in V3, D2, Q3; IOException in Q3;
-                 EmptyStackException in SimpleStack
+                 EmptyStackException in the stacks
 Design pattern   Strategy (V3); V3, D2 and Q3 share the structure
                  model - (file reader) - menu - main
 
