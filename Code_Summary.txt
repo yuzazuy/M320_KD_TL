@@ -134,11 +134,14 @@ SimpleStack<T>         own generic stack interface (LIFO): push, pop, peek,
 ArrayStack<T>          implements SimpleStack<T> with an ArrayList<T>
 LinkedStack<T>         implements SimpleStack<T> with a chain of nodes
                        pop/peek on an empty stack throw EmptyStackException
-StackDemoQ3            own main: runs the same trip with an ArrayStack and a
-                       LinkedStack through the interface (polymorphism):
-                       pushes JFK, ORD, DEN, LAX (ZRH is skipped because it
-                       is not in the file), then pops the way back in
-                       reverse order
+StackDemoQ3            own main: loads the default airports, starts RouteMenu
+RouteMenu              interactive stack demo: choose ArrayStack or
+                       LinkedStack (stored as SimpleStack<String>, so the
+                       menu works with both: polymorphism), then
+                       1 fly to an airport (push), 2 example trip JFK, ORD,
+                       ZRH, DEN, LAX (ZRH skipped, not in the file),
+                       3 current airport (peek), 4 fly back one (pop),
+                       5 fly home (pop until empty), 6 exit
 
 
 CONCEPTS - WHERE TO FIND THEM
@@ -147,7 +150,7 @@ Inheritance      V1 (Employee), V2 (Team), V3 (GameCharacter), D2 (Passenger)
 Abstract         V3 GameCharacter, D2 Passenger
 Overriding       V1 calculatePay(), V2 play(), D2 printBoardingInfo()
 Polymorphism     V2 Team.playAll(), V3 weaponBehavior.useWeapon(),
-                 D2 Flight.printPassengerList(), Q3 StackDemoQ3.flyRoundTrip()
+                 D2 Flight.printPassengerList(), Q3 RouteMenu (SimpleStack<String> route)
                  (V1 EmployeeManager only overrides: one list per subclass)
 Interface        V3 WeaponBehavior, Q3 SimpleStack<T>
 Aggregation      V3 character HAS a weapon, D2 flight HAS passengers
