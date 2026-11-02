@@ -59,13 +59,6 @@ public class AirportMap {
     }
 
     /**
-     * Removes all airports.
-     */
-    public void clear() {
-        airports.clear();
-    }
-
-    /**
      * Prints all airports.
      * A HashMap has no fixed order, so the entries can appear in any order.
      */

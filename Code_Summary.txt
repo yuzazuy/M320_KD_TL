@@ -117,7 +117,7 @@ src/Ch/airports.csv    copy of the given file: header + 155 airports (CODE,Name)
 AirportMap             wraps HashMap<String, String> (code -> name):
                        put() replaces the old value (no duplicate keys),
                        get() returns null if not found, containsKey, size,
-                       clear, printAll
+                       printAll
 AirportFileReader      readDefault(): reads airports.csv from the classpath;
                        readFile(): reads any file on disk; both skip the
                        header and blank lines, split at the first comma, trim,

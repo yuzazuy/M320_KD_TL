@@ -330,7 +330,7 @@ The same name can be booked twice. Removing then deletes only one of them.
   - `put(code, name)` returns the **old** value, or `null` if the code was new.
     Keys are unique, so putting an existing code replaces its name.
   - `get(code)` returns the name, or `null` if the code is not found.
-  - `containsKey`, `size`, `clear`, and `printAll` (loops over `keySet()`; a
+  - `containsKey`, `size`, and `printAll` (loops over `keySet()`; a
     `HashMap` has no fixed order).
 - **`airports.csv`**: lies in `src/Ch`, next to the classes. IntelliJ copies
   it into the output folder with the `.class` files, so it is on the
